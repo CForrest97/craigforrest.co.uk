@@ -1,0 +1,9 @@
+nextjs-template:
+  component: "@sls-next/serverless-component@1.18"
+  inputs:
+    description: "A template NextJS app deployed on Lambda@Edge"
+    name:
+      defaultLambda: nextjs-template-app-default
+      apiLambda: nextjs-template-app-api
+    AccelerateConfiguration:
+      AccelerationStatus: Enabled
