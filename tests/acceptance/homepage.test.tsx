@@ -7,5 +7,5 @@ import { render } from "../helpers/testUtils";
 test("should pass", () => {
   render(<Homepage />);
 
-  expect(screen.getByText("Hello world")).toBeInTheDocument();
+  expect(screen.getByText("Homepage")).toBeInTheDocument();
 });
