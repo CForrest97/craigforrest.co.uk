@@ -12,7 +12,8 @@
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watchAll",
     "test:full": "yarn type-check && yarn test:coverage",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "deploy": "serverless"
   },
   "dependencies": {
     "next": "^11.1.0",
