@@ -25,6 +25,7 @@ module.exports = {
     "no-use-before-define": "off",
     "@typescript-eslint/no-use-before-define": ["error"],
     "import/no-extraneous-dependencies": ["error", { devDependencies: true }],
+    "class-methods-use-this": "off",
   },
   settings: {
     "import/resolver": {
@@ -32,5 +33,9 @@ module.exports = {
         extensions: [".js", ".jsx", ".ts", ".tsx"],
       },
     },
+  },
+  globals: {
+    localStorage: true,
+    document: true,
   },
 };

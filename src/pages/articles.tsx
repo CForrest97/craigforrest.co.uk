@@ -3,17 +3,17 @@ import { NextPage } from "next";
 import Head from "next/head";
 import { Hero } from "../components/Hero";
 
-const Homepage: NextPage = () => (
+const Articles: NextPage = () => (
   <>
     <Head>
-      <title>Craig Forrest</title>
+      <title>Articles | Craig Forrest</title>
     </Head>
     <Hero
-      title="Hello, I'm Craig 👋"
-      description="I'm a software engineer at Cazoo, London"
+      title="Articles ✍️"
+      description="A space for me to write some articles"
     />
     <section className="mt-16"></section>
   </>
 );
 
-export default Homepage;
+export default Articles;
