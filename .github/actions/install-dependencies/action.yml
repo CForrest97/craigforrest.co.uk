@@ -4,8 +4,6 @@ description: Installs and caches dependencies
 runs:
   using: composite
   steps:
-    - uses: actions/checkout@v3
-
     - uses: actions/setup-node@v3
       with:
         node-version: ${{ env.NODE_VERSION }}
@@ -14,13 +12,13 @@ runs:
       uses: actions/cache@v3
       with:
         path: node_modules/*
-        key: node_modules-node-${{ hashFiles('package-lock.json') }}
+        key: node_modules-node-${{ hashFiles('yarn.lock') }}
 
     - name: Install dependencies
       shell: bash
       run: |
         if [ ! -d ./node_modules ]; then
-          npm ci
+          yarn install --immutable
         else
-          echo package.json and package-lock.json unchanged. Using cache.
+          echo package.json and yarn.lock unchanged. Using cache.
         fi
