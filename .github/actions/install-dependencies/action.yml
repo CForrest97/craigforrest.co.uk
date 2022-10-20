@@ -18,7 +18,7 @@ runs:
       shell: bash
       run: |
         if [ ! -d ./node_modules ]; then
-          npm ci
+          yarn ci
         else
           echo package.json and package-lock.json unchanged. Using cache.
         fi
