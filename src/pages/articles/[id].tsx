@@ -6,7 +6,7 @@ import React from "react";
 import { getBlocks, getDatabase } from "../../lib/notion";
 import { Hero } from "../../components/Hero";
 
-const page: NextPage<Props> = ({ title, blocks }) => (
+const Page: NextPage<Props> = ({ title, blocks }) => (
   <>
     <Head>
       <title>Articles | Craig Forrest</title>
@@ -17,7 +17,7 @@ const page: NextPage<Props> = ({ title, blocks }) => (
   </>
 );
 
-export default page;
+export default Page;
 
 type Props = {
   title: string;
