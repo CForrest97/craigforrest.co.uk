@@ -6,13 +6,20 @@ runs:
   steps:
     - uses: actions/setup-node@v3
       with:
-        node-version: ${{ env.NODE_VERSION }}
+        node-version: 14
 
-    - name: Cache root node modules step
+    - name: Get yarn cache directory path
+      id: yarn-cache-dir-path
+      run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+
+    - name: Cache yarn directory
       uses: actions/cache@v3
+      id: yarn-cache
       with:
-        path: node_modules/*
-        key: node_modules-node-${{ hashFiles('yarn.lock') }}
+        path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-yarn-
 
     - name: Install dependencies
       shell: bash

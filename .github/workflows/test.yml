@@ -6,13 +6,15 @@ jobs:
   static-check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/actions/install-dependencies
-      - uses: ./.github/actions/static-check
+      - name: install dependencies
+        uses: ./.github/actions/install-dependencies
+      - name: Run static checks
+        uses: ./.github/actions/static-check
 
   unit-tests:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/actions/install-dependencies
-      - uses: ./.github/actions/unit-tests
+      - name: install dependencies
+        uses: ./.github/actions/install-dependencies
+      - name: Run unit tests
+        uses: ./.github/actions/unit-tests
