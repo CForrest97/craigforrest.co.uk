@@ -1,0 +1,10 @@
+name: Unit tests
+description: Run unit tests with ci
+
+runs:
+  using: composite
+  steps:
+    - name: Run unit tests
+      shell: bash
+      run: |
+        yarn test:coverage

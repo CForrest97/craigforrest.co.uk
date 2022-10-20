@@ -1,0 +1,15 @@
+name: Static check
+description: Static check (lint and type check)
+
+runs:
+  using: composite
+  steps:
+    - name: Run lint
+      shell: bash
+      run: |
+        yarn lint
+
+    - name: Run type check
+      shell: bash
+      run: |
+        yarn type-check

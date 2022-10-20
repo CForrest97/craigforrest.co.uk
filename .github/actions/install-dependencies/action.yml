@@ -1,0 +1,26 @@
+name: Install dependencies
+description: Installs and caches dependencies
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/checkout@v3
+
+    - uses: actions/setup-node@v3
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+
+    - name: Cache root node modules step
+      uses: actions/cache@v3
+      with:
+        path: node_modules/*
+        key: node_modules-node-${{ hashFiles('package-lock.json') }}
+
+    - name: Install dependencies
+      shell: bash
+      run: |
+        if [ ! -d ./node_modules ]; then
+          npm ci
+        else
+          echo package.json and package-lock.json unchanged. Using cache.
+        fi

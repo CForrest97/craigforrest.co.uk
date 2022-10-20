@@ -4,8 +4,6 @@ import React from "react";
 import { Footer } from "./Footer";
 import Header from "./Header";
 
-declare const window: any;
-
 type Props = {
   children: React.ReactNode;
 };
