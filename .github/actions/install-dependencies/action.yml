@@ -4,15 +4,11 @@ description: Installs and caches dependencies
 runs:
   using: composite
   steps:
-    - uses: actions/setup-node@v3
+    - name: Setup Node@14
+      uses: actions/setup-node@v3
       with:
-        node-version: ${{ env.NODE_VERSION }}
-
-    - name: Cache root node modules step
-      uses: actions/cache@v3
-      with:
-        path: node_modules/*
-        key: node_modules-node-${{ hashFiles('yarn.lock') }}
+        node-version: 14
+        cache: yarn
 
     - name: Install dependencies
       shell: bash
