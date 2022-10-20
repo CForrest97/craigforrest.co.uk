@@ -14,7 +14,7 @@ const SocialLink = ({ Icon, link }: SocialLinkProps) => (
 );
 
 const SocialIcons = () => (
-  <div className="flex text-3xl my-6 text-gray-500  dark:text-gray-300">
+  <div className="flex text-3xl my-6 text-gray-500 dark:text-gray-300">
     <SocialLink Icon={<FaGithub />} link="https://github.com/CForrest97/" />
     <SocialLink
       Icon={<FaLinkedin />}

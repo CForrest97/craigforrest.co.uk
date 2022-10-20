@@ -10,9 +10,8 @@ const Articles: NextPage = () => (
     </Head>
     <Hero
       title="Articles ✍️"
-      description="A space for me to write some articles"
+      description="A space for me to write some articles..."
     />
-    <section className="mt-16"></section>
   </>
 );
 

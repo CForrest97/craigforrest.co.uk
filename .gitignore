@@ -4,5 +4,6 @@ coverage/
 .next
 .eslintcache
 .vscode
+.idea
 .serverless
 .serverless_nextjs
