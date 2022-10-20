@@ -12,13 +12,13 @@ runs:
       uses: actions/cache@v3
       with:
         path: node_modules/*
-        key: node_modules-node-${{ hashFiles('package-lock.json') }}
+        key: node_modules-node-${{ hashFiles('yarn.lock') }}
 
     - name: Install dependencies
       shell: bash
       run: |
         if [ ! -d ./node_modules ]; then
-          yarn ci
+          yarn install --immutable
         else
-          echo package.json and package-lock.json unchanged. Using cache.
+          echo package.json and yarn.lock unchanged. Using cache.
         fi
