@@ -9,6 +9,7 @@ runs:
         node-version: 14
 
     - name: Get yarn cache directory path
+      shell: bash
       id: yarn-cache-dir-path
       run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
 
