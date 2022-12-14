@@ -1,15 +1,18 @@
+import { MantineProvider } from "@mantine/core";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";
 import React from "react";
 import { Footer } from "./Footer";
-import Header from "./Header";
+import { Header } from "./Header";
+import { useTheme } from "../providers/ThemeProvider";
 
 type Props = {
   children: React.ReactNode;
 };
 
-const Layout: React.FC<Props> = ({ children }: Props) => {
+export const Layout: React.FC<Props> = ({ children }: Props) => {
   const { asPath } = useRouter();
+  const { isDark } = useTheme();
 
   const variants = {
     hidden: { opacity: 0, x: 0, y: 0 },
@@ -18,7 +21,13 @@ const Layout: React.FC<Props> = ({ children }: Props) => {
   };
 
   return (
-    <>
+    <MantineProvider
+      withGlobalStyles
+      withNormalizeCSS
+      theme={{
+        colorScheme: isDark ? "dark" : "light",
+      }}
+    >
       <Header />
       <AnimatePresence
         exitBeforeEnter
@@ -37,7 +46,6 @@ const Layout: React.FC<Props> = ({ children }: Props) => {
         </motion.div>
       </AnimatePresence>
       <Footer />
-    </>
+    </MantineProvider>
   );
 };
-export default Layout;

@@ -1,10 +1,10 @@
 import React from "react";
 import { NextPage } from "next";
 import Head from "next/head";
-import { Hero } from "../components/Hero";
-import { ProjectCard } from "../components/ProjectCard";
+import { Hero } from "../../components/Hero";
+import { ProjectCard } from "../../components/ProjectCard";
 
-const Projects: NextPage = () => (
+const Index: NextPage = () => (
   <>
     <Head>
       <title>Projects | Craig Forrest</title>
@@ -44,4 +44,4 @@ const Projects: NextPage = () => (
   </>
 );
 
-export default Projects;
+export default Index;

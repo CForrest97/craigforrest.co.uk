@@ -1,24 +1,9 @@
 import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useTheme } from "../providers/ThemeProvider";
 
-const ThemeToggle = () => {
-  const [isDark, setIsDark] = React.useState(false);
-
-  React.useEffect(() => {
-    setIsDark(localStorage.getItem("theme") === "dark");
-  }, []);
-
-  React.useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.removeItem("theme");
-    }
-  }, [isDark]);
-
-  const toggleTheme = () => setIsDark((d) => !d);
+export const ThemeToggle = () => {
+  const { isDark, toggle } = useTheme();
 
   return (
     <div>
@@ -30,7 +15,7 @@ const ThemeToggle = () => {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 20, opacity: 0 }}
           transition={{ duration: 0.2 }}
-          onClick={toggleTheme}
+          onClick={toggle}
         >
           {isDark ? "🌙" : "🌤️"}
         </motion.button>
@@ -38,5 +23,3 @@ const ThemeToggle = () => {
     </div>
   );
 };
-
-export default ThemeToggle;
