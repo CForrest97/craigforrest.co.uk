@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { motion, AnimateSharedLayout } from "framer-motion";
-import ThemeToggle from "./ThemeToggle";
+import { ThemeToggle } from "./ThemeToggle";
 
 type LinkProps = { path: string; name: string; isActive: boolean };
 
@@ -41,7 +41,7 @@ const TopLevelLinks: React.FC = () => {
           <TopLevelLink
             name={name}
             path={path}
-            isActive={path === asPath}
+            isActive={path === asPath || asPath.startsWith(`${path}/`)}
             key={path}
           />
         ))}
@@ -50,7 +50,7 @@ const TopLevelLinks: React.FC = () => {
   );
 };
 
-const Header: React.FC = () => (
+export const Header: React.FC = () => (
   <header className="bg-white dark:bg-gray-800 transition-colors duration-400 ease-linear mx-auto px-3 md:px-36 lg:px-52 xl:px-80 flex items-center justify-between h-16 border-b-2 border-gray-200 dark:border-gray-600 fixed w-full z-50">
     <Link href="/">
       <a className="text-gray-800 dark:text-gray-50 py-2 text-lg font-medium">
@@ -64,5 +64,3 @@ const Header: React.FC = () => (
     </div>
   </header>
 );
-
-export default Header;

@@ -1,13 +1,25 @@
 import { Client } from "@notionhq/client";
+import assert from "assert";
 
 const notion = new Client({
   auth: process.env.NOTION_TOKEN,
 });
 
-export const getDatabase = (databaseId: string) =>
+const getDatabaseId = (): string => {
+  const databaseId = process.env.NOTION_DATABASE_ID;
+
+  assert(
+    typeof databaseId === "string",
+    `database ID: "${databaseId}" is not valid`
+  );
+
+  return databaseId;
+};
+
+export const getDatabase = () =>
   notion.databases
     .query({
-      database_id: databaseId,
+      database_id: getDatabaseId(),
     })
     .then(({ results }) => results);
 
