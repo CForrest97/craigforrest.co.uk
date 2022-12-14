@@ -16,14 +16,6 @@ export const getNotionPage = async (id: string) => {
     (response) => "url" in response && regExp.test(response.url)
   );
 
-  if (!page) {
-    database.forEach((response) => {
-      if ("url" in response) {
-        console.log(response.url);
-      }
-    });
-  }
-
   return {
     blocks: page ? await getBlocks(page.id) : null,
     // eslint-disable-next-line no-nested-ternary

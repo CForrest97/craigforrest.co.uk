@@ -11,7 +11,7 @@ const handler: NextApiHandler = async (req, res) => {
 
   const page = await getNotionPage(id);
 
-  res.status(200).json({ page });
+  return res.status(200).json({ page });
 };
 
 export default handler;

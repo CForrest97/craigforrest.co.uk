@@ -7,7 +7,6 @@ import { useArticles } from "../../articles/hooks/useArticles";
 
 const Index: NextPage = () => {
   const articles = useArticles();
-  console.log(articles);
 
   return (
     <>
