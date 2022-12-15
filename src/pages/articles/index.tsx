@@ -4,6 +4,7 @@ import Head from "next/head";
 import { Hero } from "../../components/Hero";
 import { ArticleCard } from "../../articles/components/ArticleCard";
 import { useArticles } from "../../articles/hooks/useArticles";
+import { Article } from "../../articles/models/Article";
 
 const Index: NextPage = () => {
   const articles = useArticles();
