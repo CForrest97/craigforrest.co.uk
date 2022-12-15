@@ -8,7 +8,6 @@ import Head from "next/head";
 import React from "react";
 import { Prism } from "@mantine/prism";
 import { useRouter } from "next/router";
-import { getBlocks } from "../../lib/notion";
 import { Hero } from "../../components/Hero";
 import { useTheme } from "../../providers/ThemeProvider";
 import { useNotionPage } from "../../hooks/useNotionPage";
@@ -18,22 +17,19 @@ const Page: NextPage = () => {
 
   const page = useNotionPage(router.query.id as string);
 
-  if (page === null) return null;
-  const { title, blocks } = page;
-
   return (
     <>
       <Head>
         <title>Articles | Craig Forrest</title>
       </Head>
-      <Hero title={title} description="" />
+      <Hero title={page?.title ?? "loading"} description="" />
 
       <section className="mt-16">
-        {
+        {page && (
           <Render
             useStyles
             classNames
-            blocks={blocks as any}
+            blocks={page.blocks as any}
             blockComponentsMapper={{
               [blockEnum.HEADING2]: withContentValidation(({ plainText }) => (
                 <h2 className="text-2xl sm:text-5xl lg:text-4xl mb-2">
@@ -54,7 +50,7 @@ const Page: NextPage = () => {
               }),
             }}
           />
-        }
+        )}
       </section>
     </>
   );

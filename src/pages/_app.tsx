@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import "tailwindcss/tailwind.css";
 import { AppProps } from "next/app";
 import { QueryClient, QueryClientProvider } from "react-query";

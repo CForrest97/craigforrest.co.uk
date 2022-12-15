@@ -7,3 +7,4 @@ coverage/
 .idea
 .serverless
 .serverless_nextjs
+tsconfig.tsbuildinfo
