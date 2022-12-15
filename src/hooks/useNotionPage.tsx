@@ -13,5 +13,5 @@ export const useNotionPage = (slug: string): NotionPage | null => {
     if (notionPage?.title) setCachedValue(notionPage);
   }, [notionPage]);
 
-  return notionPage ?? cachedValue;
+  return notionPage?.title ? notionPage : cachedValue;
 };

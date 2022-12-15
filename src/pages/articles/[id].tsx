@@ -16,6 +16,7 @@ const Page: NextPage = () => {
   const router = useRouter();
 
   const page = useNotionPage(router.query.id as string);
+  console.log(page);
 
   return (
     <>
