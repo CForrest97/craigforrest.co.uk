@@ -11,18 +11,16 @@ export const getNotionPage = async (id: string) => {
   );
 
   const database = await getDatabase();
-  const regExp = new RegExp(`notion.so/${id}-[0-9a-f]{32}`, "i");
   const page = database.find(
-    (response) => "url" in response && regExp.test(response.url)
+    (response) =>
+      "url" in response && response.url.toLowerCase().includes(id.toLowerCase())
   );
 
   return {
     blocks: page ? await getBlocks(page.id) : null,
-    // eslint-disable-next-line no-nested-ternary
-    title: page
-      ? "properties" in page
+    title:
+      page && "properties" in page
         ? (page.properties.Name as any).title[0]?.plain_text
-        : ""
-      : "",
+        : "",
   };
 };
