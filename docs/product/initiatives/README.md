@@ -1,7 +1,7 @@
 # Product Initiatives
 
-| #   | Title | Status | Date |
-| --- | ----- | ------ | ---- |
+| #    | Title                                                              | Status   | Date       |
+| ---- | ------------------------------------------------------------------ | -------- | ---------- |
 | 0001 | [Build website foundation](0001-build-website-foundation/brief.md) | Proposed | 2026-08-11 |
 
 Status values: Proposed / Approved / In progress / Completed / Superseded by Initiative-NNNN

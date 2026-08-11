@@ -1,0 +1,142 @@
+:root {
+	/* Colour tokens */
+	--ink-900: #14181a;
+	--ink-700: #33393c;
+	--ink-500: #5b6366;
+	--ink-300: #93999b;
+	--ink-150: #c7cbcc;
+	--ink-100: #dde0e0;
+	--paper-0: #faf9f6;
+	--paper-50: #f2f0ea;
+	--paper-100: #e9e6dd;
+	--teal-900: #0a3d38;
+	--teal-700: #0f766e;
+	--teal-500: #14958a;
+	--teal-300: #6fbdb5;
+	--teal-100: #d7ebe8;
+	--rust-600: #9a4a2c;
+	--rust-100: #f1e0d5;
+
+	--color-bg: var(--paper-0);
+	--color-bg-raised: var(--paper-50);
+	--color-bg-inset: var(--paper-100);
+	--color-border: var(--ink-150);
+	--color-border-strong: var(--ink-300);
+	--color-text-primary: var(--ink-900);
+	--color-text-secondary: var(--ink-500);
+	--color-text-tertiary: var(--ink-300);
+	--color-text-on-accent: var(--paper-0);
+	--color-accent: var(--teal-700);
+	--color-accent-hover: var(--teal-900);
+	--color-accent-soft: var(--teal-100);
+	--color-accent-text: var(--teal-700);
+	--color-focus-ring: var(--teal-500);
+	--color-highlight: var(--rust-600);
+	--color-highlight-soft: var(--rust-100);
+
+	/* Type tokens */
+	--font-serif: 'Newsreader', ui-serif, Georgia, serif;
+	--font-sans: 'Public Sans', ui-sans-serif, -apple-system, sans-serif;
+	--font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', monospace;
+
+	--text-display-2: clamp(2.1rem, 1.7rem + 2vw, 3.1rem);
+	--text-h1: 2.25rem;
+	--text-h2: 1.6rem;
+	--text-h3: 1.25rem;
+	--text-body-lg: 1.15rem;
+	--text-body: 1rem;
+	--text-body-sm: 0.9rem;
+	--text-caption: 0.8rem;
+
+	--leading-tight: 1.1;
+	--leading-normal: 1.55;
+	--leading-relaxed: 1.7;
+
+	--tracking-wide: 0.04em;
+
+	/* Spacing tokens */
+	--space-1: 4px;
+	--space-2: 8px;
+	--space-3: 12px;
+	--space-4: 16px;
+	--space-5: 24px;
+	--space-6: 32px;
+	--space-7: 48px;
+	--space-8: 64px;
+	--space-9: 96px;
+
+	--radius-sm: 3px;
+	--radius-md: 6px;
+	--radius-lg: 10px;
+	--radius-pill: 999px;
+
+	--shadow-md: 0 4px 12px rgba(20, 24, 26, 0.08);
+
+	--max-width-content: 760px;
+
+	--ease-standard: cubic-bezier(0.2, 0.6, 0.2, 1);
+	--duration-fast: 120ms;
+	--duration-base: 200ms;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	background: var(--color-bg);
+	color: var(--color-text-primary);
+	font-family: var(--font-sans);
+	font-size: var(--text-body);
+	line-height: var(--leading-normal);
+}
+
+h1,
+h2,
+h3 {
+	font-family: var(--font-serif);
+	font-weight: 600;
+}
+
+a {
+	color: var(--color-accent-text);
+}
+
+/* Visible focus states throughout, per accessibility requirement. */
+a:focus-visible,
+button:focus-visible {
+	outline: 3px solid var(--color-focus-ring);
+	outline-offset: 2px;
+	border-radius: var(--radius-sm);
+}
+
+.visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+.skip-link {
+	position: absolute;
+	left: var(--space-3);
+	top: -3rem;
+	z-index: 20;
+	background: var(--color-accent);
+	color: var(--color-text-on-accent);
+	padding: var(--space-2) var(--space-4);
+	border-radius: var(--radius-md);
+	transition: top var(--duration-base) var(--ease-standard);
+}
+
+.skip-link:focus {
+	top: var(--space-3);
+}

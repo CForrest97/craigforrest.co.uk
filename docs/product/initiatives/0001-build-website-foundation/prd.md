@@ -50,4 +50,3 @@ The page follows the supplied design system and remains understandable and opera
 - Automated checks report no known violations for the agreed accessibility, type-safety, and build checks; manual review confirms semantic heading order and responsive behaviour.
 - The implementation can be compared directly with the supplied design-system artifact and contains no knowingly unexplained visual departures.
 - No public environment, domain, backend, or runtime API is created as part of completion.
-

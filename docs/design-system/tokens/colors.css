@@ -1,0 +1,37 @@
+:root {
+	--ink-900: #14181a;
+	--ink-700: #33393c;
+	--ink-500: #5b6366;
+	--ink-300: #93999b;
+	--ink-150: #c7cbcc;
+	--ink-100: #dde0e0;
+	--paper-0: #faf9f6;
+	--paper-50: #f2f0ea;
+	--paper-100: #e9e6dd;
+	--teal-900: #0a3d38;
+	--teal-700: #0f766e;
+	--teal-500: #14958a;
+	--teal-300: #6fbdb5;
+	--teal-100: #d7ebe8;
+	--rust-600: #9a4a2c;
+	--rust-100: #f1e0d5;
+
+	--color-bg: var(--paper-0);
+	--color-bg-raised: var(--paper-50);
+	--color-bg-inset: var(--paper-100);
+	--color-border: var(--ink-150);
+	--color-border-strong: var(--ink-300);
+	--color-text-primary: var(--ink-900);
+	--color-text-secondary: var(--ink-500);
+	--color-text-tertiary: var(--ink-300);
+	--color-text-on-accent: var(--paper-0);
+	--color-accent: var(--teal-700);
+	--color-accent-hover: var(--teal-900);
+	--color-accent-soft: var(--teal-100);
+	--color-accent-text: var(--teal-700);
+	--color-link: var(--teal-700);
+	--color-link-hover: var(--teal-900);
+	--color-highlight: var(--rust-600);
+	--color-highlight-soft: var(--rust-100);
+	--color-focus-ring: var(--teal-500);
+}

@@ -1,7 +1,9 @@
 # Architecture Decision Records
 
-| #   | Title | Status | Date |
-| --- | ----- | ------ | ---- |
+| #                                                 | Title                                                     | Status   | Date       |
+| ------------------------------------------------- | --------------------------------------------------------- | -------- | ---------- |
+| [0001](0001-astro-build-tooling.md)               | Use Astro as the build tool and framework                 | Accepted | 2026-08-11 |
+| [0002](0002-typed-data-content-representation.md) | Represent repeated content as plain typed TypeScript data | Accepted | 2026-08-11 |
 
 Status values: Proposed / Accepted / Superseded by ADR-NNNN
 

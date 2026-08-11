@@ -4,11 +4,11 @@ Shared conventions for any AI coding agent working in this repo (Codex, Claude C
 
 ## Build & test
 
-<!-- e.g. npm install / npm test / npm run build -->
+`npm install`, `npm run dev`, `npm run check` (typecheck), `npm run format:check` (Prettier), `npm run build`, `npm run preview`. See [README.md](README.md#development).
 
 ## Conventions
 
-<!-- language, formatting, testing conventions -->
+Astro (`.astro` components/pages) with TypeScript — see [ADR-0001](docs/adr/0001-astro-build-tooling.md). Repeated content (project cards, contact links) is plain typed TS data under `src/data/`, not Zod-validated — see [ADR-0002](docs/adr/0002-typed-data-content-representation.md). Prefer `type` over `interface`. Formatting is enforced by Prettier (`npm run format`); don't hand-format.
 
 Use the host's native interactive questioning tool when it is available and appropriate.
 

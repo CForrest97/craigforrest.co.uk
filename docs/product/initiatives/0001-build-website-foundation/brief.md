@@ -44,4 +44,3 @@ Excluded:
 
 - Craig Forrest — product owner, content owner, design-system provider, and approver.
 - Engineering peers, recruiters, and potential collaborators — future site visitors whose needs guide the experience.
-

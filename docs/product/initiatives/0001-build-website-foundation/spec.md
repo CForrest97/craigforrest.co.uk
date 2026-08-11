@@ -52,4 +52,3 @@ All external URLs used in this initiative are sample values. External links must
 ## Related decisions
 
 No existing ADR selects the implementation architecture or content representation. Before implementation, record and accept the necessary decisions in the [ADR index](../../../adr/README.md). Product scope remains governed by the [product overview](../../overview.md) and [product decision log](../../decisions.md).
-
