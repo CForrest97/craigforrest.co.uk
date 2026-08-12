@@ -3,6 +3,7 @@
 | #    | Title                                                              | Status   | Date       |
 | ---- | ------------------------------------------------------------------ | -------- | ---------- |
 | 0001 | [Build website foundation](0001-build-website-foundation/brief.md) | Proposed | 2026-08-11 |
+| 0002 | [Deploy site to craigforrest.co.uk](0002-deploy-site/brief.md) | Approved | 2026-08-11 |
 
 Status values: Proposed / Approved / In progress / Completed / Superseded by Initiative-NNNN
 

@@ -13,6 +13,7 @@ The site is being rebuilt from a clean slate. Initiative [0001-build-website-fou
 - [Architecture Decision Records](docs/adr/README.md)
 - [Product initiatives](docs/product/initiatives/)
 - [Design system reference](docs/design-system/README.md)
+- [Deployment infrastructure](infra/README.md) — Cloudflare Pages/DNS provisioning and how to operate it
 
 ## Development
 
