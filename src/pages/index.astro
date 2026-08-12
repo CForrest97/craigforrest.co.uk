@@ -1,0 +1,256 @@
+---
+import '../styles/global.css';
+import ProjectCard from '../components/ProjectCard.astro';
+import { projects } from '../data/projects';
+import { contactLinks } from '../data/contact';
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" sizes="32x32" />
+		<meta name="theme-color" content="#0f766e" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+		<meta
+			name="description"
+			content="Sample foundation build of Craig Forrest's engineering site — not production content."
+		/>
+		<title>Craig Forrest — engineering (sample foundation)</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
+	<body>
+		<a class="skip-link" href="#main">Skip to main content</a>
+
+		<div class="sample-banner" role="note">
+			Sample foundation build — all content on this page is placeholder text, not Craig's real
+			projects or contact details.
+		</div>
+
+		<div class="page">
+			<header class="site-header">
+				<a class="wordmark" href="/">Craig Forrest</a>
+				<nav aria-label="Page sections">
+					<a href="#projects">Projects</a>
+					<a href="#contact">Contact</a>
+				</nav>
+			</header>
+
+			<main id="main">
+				<section id="about" aria-labelledby="about-heading">
+					<p class="eyebrow">Software engineer</p>
+					<h1 id="about-heading">I build things, then write down why.</h1>
+					<p class="intro">
+						This is a working record of decisions, constraints, and trade-offs behind the software I
+						ship — not a résumé, and not a blog with a schedule. This particular page is a
+						foundation build: the layout and design system are real, the words and links are
+						placeholders.
+					</p>
+				</section>
+
+				<section id="projects" aria-labelledby="projects-heading">
+					<div class="section-heading">
+						<h2 id="projects-heading">Projects</h2>
+						<span class="section-note">selected work, not an archive</span>
+					</div>
+					<div class="project-list">
+						{projects.map((project) => <ProjectCard project={project} />)}
+					</div>
+				</section>
+
+				<section id="contact" aria-labelledby="contact-heading">
+					<h2 id="contact-heading">Contact</h2>
+					<ul class="contact-list">
+						{
+							contactLinks.map((link) => (
+								<li>
+									<a href={link.href} target="_blank" rel="noopener noreferrer">
+										{link.label}
+										<span class="visually-hidden"> (opens in a new tab)</span>
+									</a>
+								</li>
+							))
+						}
+					</ul>
+				</section>
+			</main>
+
+			<footer class="site-footer">
+				<span>craigforrest.co.uk — sample foundation build</span>
+			</footer>
+		</div>
+
+		<style>
+			.sample-banner {
+				background: var(--color-highlight-soft);
+				color: var(--rust-600);
+				font-family: var(--font-mono);
+				font-size: var(--text-caption);
+				text-align: center;
+				padding: var(--space-2) var(--space-4);
+			}
+
+			.page {
+				max-width: var(--max-width-content);
+				margin: 0 auto;
+				padding: 0 var(--space-5);
+			}
+
+			.site-header {
+				position: sticky;
+				top: 0;
+				z-index: 10;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: var(--space-4) 0;
+				background: var(--color-bg);
+				border-bottom: 1px solid var(--color-border);
+			}
+
+			.wordmark {
+				font-family: var(--font-serif);
+				font-weight: 600;
+				font-size: 18px;
+				color: var(--color-text-primary);
+				text-decoration: none;
+				transition: color var(--duration-fast) var(--ease-standard);
+			}
+
+			.wordmark:hover {
+				color: var(--color-accent-text);
+			}
+
+			.site-header nav {
+				display: flex;
+				gap: var(--space-6);
+			}
+
+			.site-header nav a {
+				text-decoration: none;
+				font-size: var(--text-body-sm);
+				font-weight: 500;
+				color: var(--color-text-secondary);
+				transition: color var(--duration-fast) var(--ease-standard);
+			}
+
+			.site-header nav a:hover {
+				color: var(--color-text-primary);
+			}
+
+			#about {
+				padding: var(--space-9) 0 var(--space-8);
+				max-width: 620px;
+			}
+
+			.eyebrow {
+				font-family: var(--font-mono);
+				font-size: 13px;
+				color: var(--color-accent-text);
+				letter-spacing: var(--tracking-wide);
+				text-transform: uppercase;
+				margin: 0 0 var(--space-4);
+			}
+
+			#about h1 {
+				font-size: var(--text-display-2);
+				line-height: var(--leading-tight);
+				margin: 0;
+			}
+
+			.intro {
+				font-size: var(--text-body-lg);
+				color: var(--color-text-secondary);
+				line-height: var(--leading-relaxed);
+				margin-top: var(--space-5);
+			}
+
+			#projects {
+				padding: var(--space-6) 0 var(--space-8);
+			}
+
+			.section-heading {
+				display: flex;
+				justify-content: space-between;
+				align-items: baseline;
+				margin-bottom: var(--space-5);
+			}
+
+			.section-heading h2 {
+				font-size: var(--text-h2);
+				margin: 0;
+			}
+
+			.section-note {
+				font-family: var(--font-mono);
+				font-size: 12px;
+				color: var(--color-text-tertiary);
+			}
+
+			.project-list {
+				display: flex;
+				flex-direction: column;
+				gap: var(--space-4);
+			}
+
+			#contact {
+				padding: var(--space-6) 0 var(--space-8);
+				border-top: 1px solid var(--color-border);
+			}
+
+			#contact h2 {
+				font-size: var(--text-h2);
+				margin: var(--space-6) 0 var(--space-4);
+			}
+
+			.contact-list {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+				display: flex;
+				flex-direction: column;
+				gap: var(--space-3);
+			}
+
+			.contact-list a {
+				font-family: var(--font-mono);
+				font-size: var(--text-body-sm);
+				font-weight: 500;
+				color: var(--color-accent-text);
+				transition: color var(--duration-fast) var(--ease-standard);
+			}
+
+			.contact-list a:hover {
+				color: var(--color-accent-hover);
+			}
+
+			.site-footer {
+				padding: var(--space-6) 0;
+				border-top: 1px solid var(--color-border);
+				font-family: var(--font-mono);
+				font-size: var(--text-caption);
+				color: var(--color-text-secondary);
+			}
+
+			@media (max-width: 480px) {
+				.site-header {
+					flex-direction: column;
+					align-items: flex-start;
+					gap: var(--space-3);
+				}
+
+				.section-heading {
+					flex-direction: column;
+					align-items: flex-start;
+					gap: var(--space-1);
+				}
+			}
+		</style>
+	</body>
+</html>
