@@ -26,7 +26,7 @@ State lives in a Cloudflare R2 bucket (S3-compatible) rather than a local file, 
      scoped to the account and the `craigforrest.co.uk` zone.
 4. **Add a `production` environment** in GitHub (Settings → Environments) with:
    - Secrets: `CLOUDFLARE_API_TOKEN` (from step 3), `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY` (from step 2).
-   - Variables: `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_ZONE_ID` (not secret, but read by both the `infra` and `deploy` workflows).
+   - Variables: `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_ZONE_ID`, and `R2_BUCKET_URL` (not secrets; `R2_BUCKET_URL` is the S3 API endpoint shown in the R2 dashboard).
 
 Once these exist, push to `main` (or merge a PR) touching `infra/**` and the `Infra` workflow provisions everything.
 
@@ -46,7 +46,7 @@ Only needed for a one-off local `plan` (e.g. debugging a failing CI run). Requir
 cd infra
 export AWS_ACCESS_KEY_ID=<R2 access key id>
 export AWS_SECRET_ACCESS_KEY=<R2 secret access key>
-export AWS_ENDPOINT_URL_S3=https://<Cloudflare account ID>.r2.cloudflarestorage.com
+export AWS_ENDPOINT_URL_S3=<R2 bucket URL>
 export TF_VAR_cloudflare_api_token=<Cloudflare API token>
 export TF_VAR_cloudflare_account_id=<Cloudflare account ID>
 export TF_VAR_cloudflare_zone_id=<zone ID for craigforrest.co.uk>
