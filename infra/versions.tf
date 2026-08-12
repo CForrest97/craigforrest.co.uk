@@ -14,7 +14,6 @@ terraform {
   # the AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY env vars (an R2 API
   # token), never from a committed file.
   backend "s3" {
-    bucket                      = "craigforrest-co-uk-tfstate"
     key                         = "site.tfstate"
     region                      = "auto"
     use_path_style              = true

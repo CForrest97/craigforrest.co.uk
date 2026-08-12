@@ -16,7 +16,7 @@ Infra changes are applied by the [`Infra` workflow](../.github/workflows/infra.y
 
 State lives in a Cloudflare R2 bucket (S3-compatible) rather than a local file, since GitHub Actions runners don't persist anything between runs. Setting this up is a one-off, dashboard-only task:
 
-1. **Create the state bucket** — Cloudflare dashboard → R2 → Create bucket → name it `craigforrest-co-uk-tfstate` (or update the name in [`versions.tf`](versions.tf) to match).
+1. **Create the state bucket** — Cloudflare dashboard → R2 → Create bucket. The bucket name is configured through the `R2_STATE_BUCKET_NAME` GitHub environment variable rather than committed in [`versions.tf`](versions.tf).
 2. **Create an R2 API token** — R2 → Manage API tokens → Create API token, with Object Read & Write permissions scoped to that bucket. This gives you an access key ID and secret access key (separate from your regular Cloudflare API token).
 3. **Create a Cloudflare API token** for provisioning (Cloudflare dashboard → My Profile → API Tokens → Create Token) with:
    - Account → Cloudflare Pages → Edit
@@ -26,7 +26,7 @@ State lives in a Cloudflare R2 bucket (S3-compatible) rather than a local file, 
      scoped to the account and the `craigforrest.co.uk` zone.
 4. **Add a `production` environment** in GitHub (Settings → Environments) with:
    - Secrets: `CLOUDFLARE_API_TOKEN` (from step 3), `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY` (from step 2).
-   - Variables: `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_ZONE_ID`, and `R2_BUCKET_URL` (not secrets; `R2_BUCKET_URL` is the S3 API endpoint shown in the R2 dashboard).
+   - Variables: `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_ZONE_ID`, `R2_BUCKET_URL`, and `R2_STATE_BUCKET_NAME` (not secrets; `R2_BUCKET_URL` is the S3 API endpoint shown in the R2 dashboard).
 
 Once these exist, push to `main` (or merge a PR) touching `infra/**` and the `Infra` workflow provisions everything.
 
@@ -47,9 +47,10 @@ cd infra
 export AWS_ACCESS_KEY_ID=<R2 access key id>
 export AWS_SECRET_ACCESS_KEY=<R2 secret access key>
 export AWS_ENDPOINT_URL_S3=<R2 bucket URL>
+export R2_STATE_BUCKET_NAME=<R2 state bucket name>
 export TF_VAR_cloudflare_api_token=<Cloudflare API token>
 export TF_VAR_cloudflare_account_id=<Cloudflare account ID>
 export TF_VAR_cloudflare_zone_id=<zone ID for craigforrest.co.uk>
-tofu init
+tofu init -backend-config="bucket=${R2_STATE_BUCKET_NAME}"
 tofu plan
 ```
