@@ -46,16 +46,31 @@ resource "cloudflare_zone_settings_override" "site" {
   }
 }
 
-# www is not canonical; redirect it to the apex domain.
-resource "cloudflare_page_rule" "www_redirect" {
-  zone_id  = var.cloudflare_zone_id
-  target   = "${local.www_domain}/*"
-  priority = 1
+# www is not canonical; redirect it to the apex domain while preserving the
+# request path and query string.
+resource "cloudflare_ruleset" "www_redirect" {
+  zone_id     = var.cloudflare_zone_id
+  name        = "www redirect"
+  description = "Redirect www requests to the canonical apex domain"
+  kind        = "zone"
+  phase       = "http_request_dynamic_redirect"
 
-  actions {
-    forwarding_url {
-      url         = "https://${var.domain}/$1"
-      status_code = 301
+  rules {
+    ref         = "redirect_www_to_apex"
+    description = "Redirect www requests to the canonical apex domain"
+    expression  = "(http.host eq \"${local.www_domain}\")"
+    action      = "redirect"
+
+    action_parameters {
+      from_value {
+        status_code = 302
+
+        target_url {
+          expression = "concat(\"https://${var.domain}\", http.request.uri.path)"
+        }
+
+        preserve_query_string = true
+      }
     }
   }
 }
