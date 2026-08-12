@@ -6,10 +6,6 @@ resource "cloudflare_pages_project" "site" {
   account_id        = var.cloudflare_account_id
   name              = var.pages_project_name
   production_branch = "main"
-
-  # No `source` block: this project is not connected to GitHub. Builds and
-  # deploys are pushed explicitly by the GitHub Actions workflow via
-  # `wrangler pages deploy` (see ADR-0003), not by Cloudflare polling the repo.
 }
 
 resource "cloudflare_pages_domain" "apex" {
