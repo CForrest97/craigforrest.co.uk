@@ -20,9 +20,9 @@ State lives in a Cloudflare R2 bucket (S3-compatible) rather than a local file, 
 2. **Create an R2 API token** — R2 → Manage API tokens → Create API token, with Object Read & Write permissions scoped to that bucket. This gives you an access key ID and secret access key (separate from your regular Cloudflare API token).
 3. **Create a Cloudflare API token** for provisioning (Cloudflare dashboard → My Profile → API Tokens → Create Token) with:
    - Account → Cloudflare Pages → Edit
+   - Zone → Dynamic URL Redirects → Edit
    - Zone → DNS → Edit
    - Zone → Zone Settings → Edit
-   - Zone → Page Rules → Edit
      scoped to the account and the `craigforrest.co.uk` zone.
 4. **Add a `production` environment** in GitHub (Settings → Environments) with:
    - Secrets: `CLOUDFLARE_API_TOKEN` (from step 3), `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY` (from step 2).
