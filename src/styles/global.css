@@ -35,7 +35,8 @@
 	--color-highlight-soft: var(--rust-100);
 
 	/* Type tokens */
-	--font-serif: 'Newsreader', ui-serif, Georgia, serif;
+	--font-serif:
+		'Newsreader', 'Iowan Old Style', 'Palatino Linotype', 'Book Antiqua', Georgia, serif;
 	--font-sans: 'Public Sans', ui-sans-serif, -apple-system, sans-serif;
 	--font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', monospace;
 
