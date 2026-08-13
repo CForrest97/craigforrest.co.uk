@@ -42,6 +42,7 @@ resource "cloudflare_zone_settings_override" "site" {
 
   settings {
     always_use_https = "on"
+    fonts            = "on"
     ssl              = "full"
   }
 }
