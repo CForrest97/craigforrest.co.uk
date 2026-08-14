@@ -24,8 +24,8 @@ pnpm-debug.log*
 .idea/
 
 # OpenTofu/Terraform state and local working files
-infra/.terraform/
-infra/terraform.tfstate
-infra/terraform.tfstate.backup
-infra/terraform.tfvars
-infra/*.tfplan
+infra/**/.terraform/
+infra/**/terraform.tfstate
+infra/**/terraform.tfstate.backup
+infra/**/terraform.tfvars
+infra/**/*.tfplan
