@@ -4,7 +4,6 @@ import ProjectCard from '../components/ProjectCard.astro';
 import { projects } from '../data/projects';
 import { contactLinks } from '../data/contact';
 import publicSansRegularUrl from '@fontsource/public-sans/files/public-sans-latin-400-normal.woff2?url';
-import publicSansMediumUrl from '@fontsource/public-sans/files/public-sans-latin-500-normal.woff2?url';
 import newsreaderSemiboldUrl from '@fontsource/newsreader/files/newsreader-latin-600-normal.woff2?url';
 import ibmPlexMonoRegularUrl from '@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff2?url';
 ---
@@ -18,7 +17,6 @@ import ibmPlexMonoRegularUrl from '@fontsource/ibm-plex-mono/files/ibm-plex-mono
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="generator" content={Astro.generator} />
 		<link rel="preload" href={publicSansRegularUrl} as="font" type="font/woff2" crossorigin />
-		<link rel="preload" href={publicSansMediumUrl} as="font" type="font/woff2" crossorigin />
 		<link rel="preload" href={newsreaderSemiboldUrl} as="font" type="font/woff2" crossorigin />
 		<link rel="preload" href={ibmPlexMonoRegularUrl} as="font" type="font/woff2" crossorigin />
 		<meta
