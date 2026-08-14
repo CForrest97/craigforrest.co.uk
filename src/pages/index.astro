@@ -106,12 +106,25 @@ import ibmPlexMonoRegularUrl from '@fontsource/ibm-plex-mono/files/ibm-plex-mono
 				position: sticky;
 				top: env(safe-area-inset-top, 0px);
 				z-index: 10;
+				isolation: isolate;
 				display: flex;
 				align-items: center;
 				justify-content: space-between;
 				padding: var(--space-4) 0;
 				background: var(--color-bg);
+			}
+
+			.site-header::before {
+				content: '';
+				position: absolute;
+				top: calc(-1 * env(safe-area-inset-top, 0px));
+				right: calc(50% - 50vw);
+				bottom: -1px;
+				left: calc(50% - 50vw);
+				z-index: -1;
+				background: var(--color-bg);
 				border-bottom: 1px solid var(--color-border);
+				pointer-events: none;
 			}
 
 			.wordmark {

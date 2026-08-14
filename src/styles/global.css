@@ -110,27 +110,21 @@
 	box-sizing: border-box;
 }
 
+html {
+	background: var(--color-bg);
+	overscroll-behavior-y: none;
+}
+
 body {
 	margin: 0;
 	padding-top: env(safe-area-inset-top, 0px);
+	overscroll-behavior-y: none;
 	background: var(--color-bg);
 	color: var(--color-text-primary);
 	font-family: var(--font-sans);
 	font-synthesis: weight;
 	font-size: var(--text-body);
 	line-height: var(--leading-normal);
-}
-
-body::before {
-	content: '';
-	position: fixed;
-	top: 0;
-	right: 0;
-	left: 0;
-	z-index: 11;
-	height: env(safe-area-inset-top, 0px);
-	background: var(--color-bg);
-	pointer-events: none;
 }
 
 h1,
