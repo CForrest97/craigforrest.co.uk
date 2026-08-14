@@ -3,6 +3,10 @@ import '../styles/global.css';
 import ProjectCard from '../components/ProjectCard.astro';
 import { projects } from '../data/projects';
 import { contactLinks } from '../data/contact';
+import publicSansRegularUrl from '@fontsource/public-sans/files/public-sans-latin-400-normal.woff2?url';
+import publicSansMediumUrl from '@fontsource/public-sans/files/public-sans-latin-500-normal.woff2?url';
+import newsreaderSemiboldUrl from '@fontsource/newsreader/files/newsreader-latin-600-normal.woff2?url';
+import ibmPlexMonoRegularUrl from '@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff2?url';
 ---
 
 <html lang="en">
@@ -13,15 +17,15 @@ import { contactLinks } from '../data/contact';
 		<meta name="theme-color" content="#0f766e" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="generator" content={Astro.generator} />
+		<link rel="preload" href={publicSansRegularUrl} as="font" type="font/woff2" crossorigin />
+		<link rel="preload" href={publicSansMediumUrl} as="font" type="font/woff2" crossorigin />
+		<link rel="preload" href={newsreaderSemiboldUrl} as="font" type="font/woff2" crossorigin />
+		<link rel="preload" href={ibmPlexMonoRegularUrl} as="font" type="font/woff2" crossorigin />
 		<meta
 			name="description"
 			content="Sample foundation build of Craig Forrest's engineering site — not production content."
 		/>
 		<title>Craig Forrest — engineering (sample foundation)</title>
-		<link
-			href="https://fonts.googleapis.com/css2?family=Newsreader:wght@600&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
-			rel="stylesheet"
-		/>
 	</head>
 	<body>
 		<a class="skip-link" href="#main">Skip to main content</a>
