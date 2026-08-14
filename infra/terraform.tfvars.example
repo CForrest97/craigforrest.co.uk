@@ -1,6 +1,0 @@
-cloudflare_account_id = "<your Cloudflare account ID>"
-cloudflare_zone_id    = "<zone ID for craigforrest.co.uk>"
-
-# Do not put cloudflare_api_token here — pass it via the
-# TF_VAR_cloudflare_api_token environment variable instead, so it never
-# lands in a file that could be committed.

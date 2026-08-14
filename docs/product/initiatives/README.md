@@ -1,9 +1,10 @@
 # Product Initiatives
 
-| #    | Title                                                              | Status   | Date       |
-| ---- | ------------------------------------------------------------------ | -------- | ---------- |
-| 0001 | [Build website foundation](0001-build-website-foundation/brief.md) | Proposed | 2026-08-11 |
-| 0002 | [Deploy site to craigforrest.co.uk](0002-deploy-site/brief.md) | Approved | 2026-08-11 |
+| #    | Title                                                                                      | Status   | Date       |
+| ---- | ------------------------------------------------------------------------------------------ | -------- | ---------- |
+| 0001 | [Build website foundation](0001-build-website-foundation/brief.md)                         | Proposed | 2026-08-11 |
+| 0002 | [Deploy site to craigforrest.co.uk](0002-deploy-site/brief.md)                             | Approved | 2026-08-11 |
+| 0003 | [Manual application and infrastructure preview](0003-shared-preview-environment/README.md) | Approved | 2026-08-14 |
 
 Status values: Proposed / Approved / In progress / Completed / Superseded by Initiative-NNNN
 
