@@ -19,19 +19,12 @@ The production root contains a non-destructive `removed` block for the former `c
 
 State lives in a Cloudflare R2 bucket because GitHub runners are ephemeral. Create an R2 bucket and an R2 API token with Object Read & Write access to it.
 
-Create a Cloudflare API token for the `production` GitHub environment with:
-
-- Account → Cloudflare Pages → Edit
-- Zone → Dynamic URL Redirects → Edit
-- Zone → DNS → Edit
-- Zone → Zone Settings → Edit
-
 Configure the `production` environment with:
 
 - Secrets: `CLOUDFLARE_API_TOKEN`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`.
 - Variables: `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_ZONE_ID`, `R2_BUCKET_URL`, `R2_STATE_BUCKET_NAME`.
 
-Configure the `preview` environment with the same R2 credentials and identifiers. Its Cloudflare token needs only Account → Cloudflare Pages → Edit and Zone → DNS → Edit.
+Configure the `preview` environment with the same R2 credentials and identifiers.
 
 Both workflows expose the Cloudflare token through the provider-native `CLOUDFLARE_API_TOKEN` environment variable. It is not declared as an OpenTofu input variable.
 
