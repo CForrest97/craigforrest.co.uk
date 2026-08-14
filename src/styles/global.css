@@ -112,13 +112,10 @@
 
 html {
 	background: var(--color-bg);
-	overscroll-behavior-y: none;
 }
 
 body {
 	margin: 0;
-	padding-top: env(safe-area-inset-top, 0px);
-	overscroll-behavior-y: none;
 	background: var(--color-bg);
 	color: var(--color-text-primary);
 	font-family: var(--font-sans);
