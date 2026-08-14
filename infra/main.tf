@@ -11,41 +11,75 @@ resource "cloudflare_pages_project" "site" {
 resource "cloudflare_pages_domain" "apex" {
   account_id   = var.cloudflare_account_id
   project_name = cloudflare_pages_project.site.name
-  domain       = var.domain
+  name         = var.domain
 }
 
 resource "cloudflare_pages_domain" "www" {
   account_id   = var.cloudflare_account_id
   project_name = cloudflare_pages_project.site.name
-  domain       = local.www_domain
+  name         = local.www_domain
 }
 
 # Cloudflare flattens CNAMEs at the zone apex automatically when proxied.
-resource "cloudflare_record" "apex" {
+resource "cloudflare_dns_record" "apex" {
   zone_id = var.cloudflare_zone_id
   name    = "@"
   type    = "CNAME"
   content = cloudflare_pages_project.site.subdomain
   proxied = true
+  ttl     = 1
 }
 
-resource "cloudflare_record" "www" {
+resource "cloudflare_dns_record" "www" {
   zone_id = var.cloudflare_zone_id
   name    = "www"
   type    = "CNAME"
   content = cloudflare_pages_project.site.subdomain
   proxied = true
+  ttl     = 1
 }
 
-# Provider v5 cannot decode the legacy aggregate resource's state. Remove it
-# from state with v4 first, without changing the live Cloudflare settings. The
-# follow-up v5 migration adopts each setting as an individual resource.
-removed {
-  from = cloudflare_zone_settings_override.site
+moved {
+  from = cloudflare_record.apex
+  to   = cloudflare_dns_record.apex
+}
 
-  lifecycle {
-    destroy = false
-  }
+moved {
+  from = cloudflare_record.www
+  to   = cloudflare_dns_record.www
+}
+
+resource "cloudflare_zone_setting" "always_use_https" {
+  zone_id    = var.cloudflare_zone_id
+  setting_id = "always_use_https"
+  value      = "on"
+}
+
+resource "cloudflare_zone_setting" "fonts" {
+  zone_id    = var.cloudflare_zone_id
+  setting_id = "fonts"
+  value      = "on"
+}
+
+resource "cloudflare_zone_setting" "ssl" {
+  zone_id    = var.cloudflare_zone_id
+  setting_id = "ssl"
+  value      = "full"
+}
+
+import {
+  to = cloudflare_zone_setting.always_use_https
+  id = "${var.cloudflare_zone_id}/always_use_https"
+}
+
+import {
+  to = cloudflare_zone_setting.fonts
+  id = "${var.cloudflare_zone_id}/fonts"
+}
+
+import {
+  to = cloudflare_zone_setting.ssl
+  id = "${var.cloudflare_zone_id}/ssl"
 }
 
 # www is not canonical; redirect it to the apex domain while preserving the
@@ -57,22 +91,22 @@ resource "cloudflare_ruleset" "www_redirect" {
   kind        = "zone"
   phase       = "http_request_dynamic_redirect"
 
-  rules {
+  rules = [{
     ref         = "redirect_www_to_apex"
     description = "Redirect www requests to the canonical apex domain"
     expression  = "(http.host eq \"${local.www_domain}\")"
     action      = "redirect"
 
-    action_parameters {
-      from_value {
+    action_parameters = {
+      from_value = {
         status_code = 302
 
-        target_url {
+        target_url = {
           expression = "concat(\"https://${var.domain}\", http.request.uri.path)"
         }
 
         preserve_query_string = true
       }
     }
-  }
+  }]
 }
