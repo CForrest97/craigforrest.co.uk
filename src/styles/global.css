@@ -112,12 +112,25 @@
 
 body {
 	margin: 0;
+	padding-top: env(safe-area-inset-top, 0px);
 	background: var(--color-bg);
 	color: var(--color-text-primary);
 	font-family: var(--font-sans);
 	font-synthesis: weight;
 	font-size: var(--text-body);
 	line-height: var(--leading-normal);
+}
+
+body::before {
+	content: '';
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	z-index: 11;
+	height: env(safe-area-inset-top, 0px);
+	background: var(--color-bg);
+	pointer-events: none;
 }
 
 h1,
@@ -164,5 +177,5 @@ button:focus-visible {
 }
 
 .skip-link:focus {
-	top: var(--space-3);
+	top: calc(env(safe-area-inset-top, 0px) + var(--space-3));
 }
