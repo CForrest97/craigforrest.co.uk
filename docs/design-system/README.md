@@ -21,9 +21,10 @@ tokens, rather than vendoring that prototype markup.
 
 - Two-colour system: teal (`--color-accent`) as the single accent, warm-neutral "paper" backgrounds, ink-grey
   text. Muted rust exists only as a sparing highlight/callout accent. No gradients.
-- Serif display (Newsreader) for headings, sans (Public Sans) for UI/body, mono (IBM Plex Mono) for
+- Serif display (Newsreader) for headings, sans (Public Sans) for UI/body, and mono (IBM Plex Mono) for
   metadata, dates, and nav-adjacent labels. Sentence case throughout; no all-caps except small tracked-wide
-  mono labels.
+  mono labels. The implementation loads one static face per family to reduce font payload; see the
+  [product decision log](../product/decisions.md).
 - 1px hairline borders (`--color-border`) are the primary separator; shadows are earned by hover only, never
   static decoration.
 - Minimal motion: 120–200ms ease transitions on colour/border/shadow only.
