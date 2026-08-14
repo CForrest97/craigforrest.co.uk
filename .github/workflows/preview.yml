@@ -39,6 +39,8 @@ jobs:
         run: echo "sha=$(git rev-parse HEAD)" >> "${GITHUB_OUTPUT}"
 
       - uses: opentofu/setup-opentofu@v1
+        with:
+          tofu_wrapper: false
 
       - name: Initialise preview infrastructure
         working-directory: infra/environments/preview
