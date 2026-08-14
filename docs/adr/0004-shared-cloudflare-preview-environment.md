@@ -1,6 +1,6 @@
 # 0004. Use a manually selected application and infrastructure preview
 
-Status: Accepted
+Status: Superseded by ADR-0005
 Date: 2026-08-14
 
 ## Context
