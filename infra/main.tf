@@ -37,13 +37,14 @@ resource "cloudflare_record" "www" {
   proxied = true
 }
 
-resource "cloudflare_zone_settings_override" "site" {
-  zone_id = var.cloudflare_zone_id
+# Provider v5 cannot decode the legacy aggregate resource's state. Remove it
+# from state with v4 first, without changing the live Cloudflare settings. The
+# follow-up v5 migration adopts each setting as an individual resource.
+removed {
+  from = cloudflare_zone_settings_override.site
 
-  settings {
-    always_use_https = "on"
-    fonts            = "on"
-    ssl              = "full"
+  lifecycle {
+    destroy = false
   }
 }
 
