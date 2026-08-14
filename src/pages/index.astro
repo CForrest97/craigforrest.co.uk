@@ -89,13 +89,17 @@ import ibmPlexMonoRegularUrl from '@fontsource/ibm-plex-mono/files/ibm-plex-mono
 		</div>
 
 		<style>
+			:global(body) {
+				--site-header-content-height: 60px;
+			}
+
 			.sample-banner {
 				background: var(--color-highlight-soft);
 				color: var(--rust-600);
 				font-family: var(--font-mono);
 				font-size: var(--text-caption);
 				text-align: center;
-				margin-top: calc(env(safe-area-inset-top, 0px) + 60px);
+				margin-top: calc(env(safe-area-inset-top, 0px) + var(--site-header-content-height));
 				padding: var(--space-2) var(--space-4);
 			}
 
@@ -250,8 +254,12 @@ import ibmPlexMonoRegularUrl from '@fontsource/ibm-plex-mono/files/ibm-plex-mono
 			}
 
 			@media (max-width: 480px) {
+				:global(body) {
+					--site-header-content-height: 95px;
+				}
+
 				.sample-banner {
-					margin-top: calc(env(safe-area-inset-top, 0px) + 95px);
+					margin-top: calc(env(safe-area-inset-top, 0px) + var(--site-header-content-height));
 				}
 
 				.site-header__inner {
