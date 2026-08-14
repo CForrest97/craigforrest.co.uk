@@ -39,16 +39,6 @@ resource "cloudflare_dns_record" "www" {
   ttl     = 1
 }
 
-moved {
-  from = cloudflare_record.apex
-  to   = cloudflare_dns_record.apex
-}
-
-moved {
-  from = cloudflare_record.www
-  to   = cloudflare_dns_record.www
-}
-
 resource "cloudflare_zone_setting" "always_use_https" {
   zone_id    = var.cloudflare_zone_id
   setting_id = "always_use_https"
@@ -65,21 +55,6 @@ resource "cloudflare_zone_setting" "ssl" {
   zone_id    = var.cloudflare_zone_id
   setting_id = "ssl"
   value      = "full"
-}
-
-import {
-  to = cloudflare_zone_setting.always_use_https
-  id = "${var.cloudflare_zone_id}/always_use_https"
-}
-
-import {
-  to = cloudflare_zone_setting.fonts
-  id = "${var.cloudflare_zone_id}/fonts"
-}
-
-import {
-  to = cloudflare_zone_setting.ssl
-  id = "${var.cloudflare_zone_id}/ssl"
 }
 
 # www is not canonical; redirect it to the apex domain while preserving the
