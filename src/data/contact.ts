@@ -8,7 +8,7 @@ export type ContactLink = {
  * see docs/product/initiatives/0001-build-website-foundation/brief.md.
  */
 export const contactLinks: ContactLink[] = [
-	{ label: 'Sample email', href: 'mailto:sample@example.com' },
-	{ label: 'Sample GitHub profile', href: 'https://github.com/example' },
-	{ label: 'Sample LinkedIn profile', href: 'https://www.linkedin.com/in/example' },
+	{ label: 'hello@craigforrest.co.uk', href: 'mailto:hello@craigforrest.co.uk' },
+	{ label: 'GitHub', href: 'https://github.com/CForrest97' },
+	{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/craig-forrest-64996a108/' },
 ];
