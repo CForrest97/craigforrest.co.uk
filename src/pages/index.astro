@@ -93,6 +93,13 @@ import ibmPlexMonoRegularUrl from '@fontsource/ibm-plex-mono/files/ibm-plex-mono
 				--site-header-content-height: 60px;
 			}
 
+			main,
+			main section {
+				scroll-margin-top: calc(
+					env(safe-area-inset-top, 0px) + var(--site-header-content-height) + var(--space-3)
+				);
+			}
+
 			.sample-banner {
 				background: var(--color-highlight-soft);
 				color: var(--rust-600);
