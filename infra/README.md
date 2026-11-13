@@ -2,18 +2,16 @@
 
 OpenTofu provisions production and preview hosting on Cloudflare without using Cloudflare's Git integration. The reusable Pages module under [`modules/pages-site`](modules/pages-site) is consumed by two peer roots with independent state:
 
-- [`environments/production`](environments/production) owns `craigforrest-co-uk`, the apex and `www` domains and DNS, shared zone settings, and the `www` redirect;
+- [`environments/production`](environments/production) owns `craigforrest-co-uk`, the apex and `www` custom domains, and their DNS records;
 - [`environments/preview`](environments/preview) owns `craigforrest-co-uk-preview`, `preview.craigforrest.co.uk`, and its proxied DNS record.
 
-Both environment `main.tf` files contain the same Pages module call; only their input defaults differ. Production-only shared-zone resources are isolated in `environments/production/zone.tf`, making the intentional parity boundary visible without changing state ownership.
+Both environment `main.tf` files contain the same Pages module call; only their input defaults differ. Shared zone settings, HTTPS enforcement, and the `www` redirect are managed by the central infrastructure repository. Make changes to those resources there. The hosting ADRs describe the original ownership before zone management moved out of this repository.
 
 Production state uses `site.tfstate`; preview state uses `preview.tfstate`. Both objects live in the same Cloudflare R2 bucket but must never own the same Cloudflare resource. Both backends enable OpenTofu's native S3 lockfile mechanism, supported by R2 conditional writes, while workflow concurrency serialises CI access as an additional safeguard. Infrastructure workflows queue rather than cancel in-progress runs so an apply is never interrupted deliberately.
 
-The existing zone cannot safely duplicate singleton zone settings or phase entry-point rulesets. Consequently, preview applies only environment-scoped Pages, custom-domain, and DNS changes. Changes to production redirects and zone settings are planned and applied only by the production root.
+The existing zone cannot safely duplicate singleton zone settings or phase entry-point rulesets. Both roots therefore manage only environment-scoped Pages projects, custom domains, and DNS records. Shared zone changes are outside both roots and cannot be exercised through this repository's preview workflow.
 
 The preview `X-Robots-Tag: noindex` policy is application-owned rather than zone-owned. [`public/_headers`](../public/_headers) is included in the Pages deployment artefact and uses an absolute hostname rule, so it affects `preview.craigforrest.co.uk` without changing production responses or claiming the zone's singleton `http_response_headers_transform` phase. A repository that centrally owns the zone can manage that phase independently if it is needed later.
-
-The production root contains a non-destructive `removed` block for the former `cloudflare_ruleset.preview_response_headers` address. If that provisional resource ever reached production state, the next apply relinquishes it without deleting a potentially shared zone entry-point ruleset. After confirming that the address is absent from state, the block can be removed; any obsolete live rule should be reconciled by the zone's owner rather than destroyed from this application state.
 
 ## GitHub environments
 
@@ -30,7 +28,7 @@ Both workflows expose the Cloudflare token through the provider-native `CLOUDFLA
 
 ## Production infrastructure
 
-The [`Infra` workflow](../.github/workflows/infra.yml) runs a production plan for pull requests changing `infra/**` and applies production automatically after those changes merge to `main`. State-preserving `moved` blocks record the refactor of existing Pages and DNS resources into the shared module; review the first production plan and confirm it reports moves rather than replacement.
+The [`Infra` workflow](../.github/workflows/infra.yml) runs a production plan for pull requests changing `infra/**` and applies production automatically after those changes merge to `main`. The root describes the current module addresses; it no longer contains the historical `moved` or `removed` blocks. Restoring an older state requires reviewing its addresses and preparing any necessary state migration before applying.
 
 For an occasional local production plan:
 
@@ -44,14 +42,16 @@ The required `AWS_*`, `TF_VAR_*`, `AWS_ENDPOINT_URL_S3`, and `R2_STATE_BUCKET_NA
 
 ## Manual preview
 
-Run Actions → **Preview** → **Run workflow**, then enter a branch, tag, or commit SHA. The workflow checks out that revision and initialises `infra/environments/preview` against `preview.tfstate`.
+Run Actions → **Preview** → **Run workflow**, select the branch using GitHub's built-in branch selector, then run the workflow. The selected commit supplies both the workflow definition and deployed revision. Direct tag and commit-SHA inputs are not supported; to preview a particular commit, first make it the tip of a branch. See [ADR-0005](../docs/adr/0005-use-built-in-branch-selection-for-preview.md).
 
-The workflow creates a saved OpenTofu plan for every run. It applies that exact plan before the application only when `tofu plan -detailed-exitcode` reports changes. OpenTofu—not Git metadata—therefore decides whether infrastructure needs updating.
+The workflow installs dependencies, type-checks, checks formatting, and builds the application before initialising `infra/environments/preview` against `preview.tfstate`. Validation or build failures stop the run before infrastructure changes.
 
-Production-only changes may legitimately produce an empty preview plan because shared zone resources cannot be duplicated. Once infrastructure succeeds, the workflow validates and builds the application and uploads it to `craigforrest-co-uk-preview` with Wrangler. The custom hostname follows the latest successful manual run; failures leave the previous deployment live.
+Each run that passes application validation creates a saved OpenTofu plan. It applies that exact plan before the application upload only when `tofu plan -detailed-exitcode` reports changes. OpenTofu—not Git metadata—therefore decides whether infrastructure needs updating.
 
-For the first rollout, merge the infrastructure refactor so production state records its moves, then run Preview with `main`. The first run creates the isolated preview state, Pages project, custom domain, DNS record, and application deployment, including the hostname-scoped `noindex` header policy.
+Once infrastructure succeeds, the workflow uploads the built application to `craigforrest-co-uk-preview` with Wrangler. The custom hostname follows the latest successful upload. A failed upload leaves the previous application deployment in place, but infrastructure changes applied earlier in the run may already have taken effect.
+
+For initial preview provisioning, run Preview with `main`. The run creates the isolated preview state, Pages project, custom domain, DNS record, and application deployment, including the hostname-scoped `noindex` header policy.
 
 ## Rollback and recovery
 
-Production application rollback uses Cloudflare Pages deployment history. Preview is updated by rerunning the manual workflow with a known-good branch, tag, or commit SHA. OpenTofu state should be repaired through normal import/move procedures rather than dashboard edits or state deletion.
+Production application rollback uses Cloudflare Pages deployment history. Preview is updated by rerunning the manual workflow with a known-good branch; to restore a particular commit, make it the tip of a branch and select that branch. OpenTofu state should be repaired through normal import/move procedures rather than dashboard edits or state deletion.
