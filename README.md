@@ -2,18 +2,9 @@
 
 The repository for Craig Forrest's personal website.
 
-Initiative [0001-build-website-foundation](docs/product/initiatives/0001-build-website-foundation/brief.md) has produced a single-page, sample-content foundation built with [Astro](https://astro.build) (see [ADR-0001](docs/adr/0001-astro-build-tooling.md)). Approved initiatives [0002](docs/product/initiatives/0002-deploy-site/brief.md) and [0003](docs/product/initiatives/0003-shared-preview-environment/README.md) provide production deployment and a manually selected preview environment. Final content and later features remain separate work.
+A single-page professional profile built with [Astro](https://astro.build) and TypeScript, with experience and contact content in `src/data/`. Global styles and design tokens live in `src/styles/global.css`.
 
-## Documentation
-
-- [Documentation map](docs/README.md)
-- [Product overview](docs/product/overview.md)
-- [Architecture overview](docs/architecture.md)
-- [Product decision log](docs/product/decisions.md)
-- [Architecture Decision Records](docs/adr/README.md)
-- [Product initiatives](docs/product/initiatives/)
-- [Design system reference](docs/design-system/README.md)
-- [Deployment infrastructure](infra/README.md) — Cloudflare Pages/DNS provisioning and how to operate it
+GitHub Actions deploys the static build to Cloudflare Pages, with automatic production deployment from `main` and a manually selected preview environment. See the [deployment guide](infra/README.md) for provisioning, environment ownership, and operating instructions.
 
 ## Development
 

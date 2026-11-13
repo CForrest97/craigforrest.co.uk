@@ -5,7 +5,7 @@ OpenTofu provisions production and preview hosting on Cloudflare without using C
 - [`environments/production`](environments/production) owns `craigforrest-co-uk`, the apex and `www` custom domains, and their DNS records;
 - [`environments/preview`](environments/preview) owns `craigforrest-co-uk-preview`, `preview.craigforrest.co.uk`, and its proxied DNS record.
 
-Both environment `main.tf` files contain the same Pages module call; only their input defaults differ. Shared zone settings, HTTPS enforcement, and the `www` redirect are managed by the central infrastructure repository. Make changes to those resources there. The hosting ADRs describe the original ownership before zone management moved out of this repository.
+Both environment `main.tf` files contain the same Pages module call; only their input defaults differ. Shared zone settings, HTTPS enforcement, and the `www` redirect are managed by the central infrastructure repository. Make changes to those resources there.
 
 Production state uses `site.tfstate`; preview state uses `preview.tfstate`. Both objects live in the same Cloudflare R2 bucket but must never own the same Cloudflare resource. Both backends enable OpenTofu's native S3 lockfile mechanism, supported by R2 conditional writes, while workflow concurrency serialises CI access as an additional safeguard. Infrastructure workflows queue rather than cancel in-progress runs so an apply is never interrupted deliberately.
 
@@ -42,7 +42,7 @@ The required `AWS_*`, `TF_VAR_*`, `AWS_ENDPOINT_URL_S3`, and `R2_STATE_BUCKET_NA
 
 ## Manual preview
 
-Run Actions → **Preview** → **Run workflow**, select the branch using GitHub's built-in branch selector, then run the workflow. The selected commit supplies both the workflow definition and deployed revision. Direct tag and commit-SHA inputs are not supported; to preview a particular commit, first make it the tip of a branch. See [ADR-0005](../docs/adr/0005-use-built-in-branch-selection-for-preview.md).
+Run Actions → **Preview** → **Run workflow**, select the branch using GitHub's built-in branch selector, then run the workflow. The selected commit supplies both the workflow definition and deployed revision. Direct tag and commit-SHA inputs are not supported; to preview a particular commit, first make it the tip of a branch.
 
 The workflow installs dependencies, type-checks, checks formatting, and builds the application before initialising `infra/environments/preview` against `preview.tfstate`. Validation or build failures stop the run before infrastructure changes.
 

@@ -1,14 +1,17 @@
 ---
 import '../styles/global.css';
-import ProjectCard from '../components/ProjectCard.astro';
-import { projects } from '../data/projects';
+import { experience } from '../data/experience';
 import { contactLinks } from '../data/contact';
 import publicSansRegularUrl from '@fontsource/public-sans/files/public-sans-latin-400-normal.woff2?url';
 import newsreaderSemiboldUrl from '@fontsource/newsreader/files/newsreader-latin-600-normal.woff2?url';
 import ibmPlexMonoRegularUrl from '@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff2?url';
+
+const title = 'Craig Forrest — Senior Software Engineer';
+const description =
+	'Craig Forrest is a hands-on senior software engineer with a product focus, working across web applications, cloud infrastructure and technical delivery.';
 ---
 
-<html lang="en">
+<html lang="en-GB">
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -19,11 +22,11 @@ import ibmPlexMonoRegularUrl from '@fontsource/ibm-plex-mono/files/ibm-plex-mono
 		<link rel="preload" href={publicSansRegularUrl} as="font" type="font/woff2" crossorigin />
 		<link rel="preload" href={newsreaderSemiboldUrl} as="font" type="font/woff2" crossorigin />
 		<link rel="preload" href={ibmPlexMonoRegularUrl} as="font" type="font/woff2" crossorigin />
-		<meta
-			name="description"
-			content="Sample foundation build of Craig Forrest's engineering site — not production content."
-		/>
-		<title>Craig Forrest — engineering (sample foundation)</title>
+		<meta name="description" content={description} />
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<title>{title}</title>
 	</head>
 	<body>
 		<a class="skip-link" href="#main">Skip to main content</a>
@@ -32,98 +35,77 @@ import ibmPlexMonoRegularUrl from '@fontsource/ibm-plex-mono/files/ibm-plex-mono
 			<div class="site-header__inner">
 				<a class="wordmark" href="/">Craig Forrest</a>
 				<nav aria-label="Page sections">
-					<a href="#projects">Projects</a>
+					<a href="#experience">Experience</a>
 					<a href="#contact">Contact</a>
 				</nav>
 			</div>
 		</header>
 
-		<div class="sample-banner" role="note">
-			Sample foundation build — all content on this page is placeholder text, not Craig's real
-			projects or contact details.
-		</div>
-
-		<div class="page">
-			<main id="main">
-				<section id="about" aria-labelledby="about-heading">
-					<p class="eyebrow">Product Engineer</p>
-					<h1 id="about-heading">I build things, then write down why.</h1>
+		<main id="main" class="page" tabindex="-1">
+			<section id="about" aria-labelledby="about-heading">
+				<h1 id="about-heading">Craig Forrest</h1>
+				<p class="role">Senior Software Engineer</p>
+				<div class="introduction">
 					<p class="intro">
-						This is a working record of decisions, constraints, and trade-offs behind the software I
-						ship — not a résumé, and not a blog with a schedule. This particular page is a
-						foundation build: the layout and design system are real, the words and links are
-						placeholders.
+						I’m a hands-on software engineer with a product focus. I care about understanding the
+						problem, building the right thing and seeing it through to release and beyond.
 					</p>
-				</section>
+					<p>
+						My experience spans web applications and cloud infrastructure, with responsibility
+						across shaping solutions, development, deployment and ongoing operation. I’ve also led
+						technical delivery, helped teams make decisions and supported other engineers through
+						pairing.
+					</p>
+					<p>
+						I focus on impact: understanding what will make a product useful, then using code to
+						make it happen.
+					</p>
+				</div>
+			</section>
 
-				<section id="projects" aria-labelledby="projects-heading">
-					<div class="section-heading">
-						<h2 id="projects-heading">Projects</h2>
-						<span class="section-note">selected work, not an archive</span>
-					</div>
-					<div class="project-list">
-						{projects.map((project) => <ProjectCard project={project} />)}
-					</div>
-				</section>
+			<section id="experience" aria-labelledby="experience-heading">
+				<h2 id="experience-heading">Experience</h2>
+				<dl class="experience-list">
+					{
+						experience.map(({ company, role }) => (
+							<div class="experience-item">
+								<dt>{company}</dt>
+								<dd>{role}</dd>
+							</div>
+						))
+					}
+				</dl>
+			</section>
 
-				<section id="contact" aria-labelledby="contact-heading">
-					<h2 id="contact-heading">Contact</h2>
-					<ul class="contact-list">
-						{
-							contactLinks.map((link) => (
-								<li>
-									<a href={link.href} target="_blank" rel="noopener noreferrer">
-										{link.label}
-										<span class="visually-hidden"> (opens in a new tab)</span>
-									</a>
-								</li>
-							))
-						}
-					</ul>
-				</section>
-			</main>
-
-			<footer class="site-footer">
-				<span>craigforrest.co.uk</span>
-			</footer>
-		</div>
+			<section id="contact" aria-labelledby="contact-heading">
+				<h2 id="contact-heading">Get in touch</h2>
+				<ul class="contact-list">
+					{
+						contactLinks.map(({ href, label }) => (
+							<li>
+								<a href={href}>{label}</a>
+							</li>
+						))
+					}
+				</ul>
+			</section>
+		</main>
 
 		<style>
-			:global(body) {
-				--site-header-content-height: 60px;
-			}
-
 			main,
 			main section {
-				scroll-margin-top: calc(
-					env(safe-area-inset-top, 0px) + var(--site-header-content-height) + var(--space-3)
-				);
+				scroll-margin-top: var(--space-5);
 			}
 
-			.sample-banner {
-				background: var(--color-highlight-soft);
-				color: var(--rust-600);
-				font-family: var(--font-mono);
-				font-size: var(--text-caption);
-				text-align: center;
-				margin-top: calc(env(safe-area-inset-top, 0px) + var(--site-header-content-height));
-				padding: var(--space-2) var(--space-4);
-			}
-
-			.page {
-				max-width: var(--max-width-content);
+			.page,
+			.site-header__inner {
+				width: min(100%, var(--max-width-content));
 				margin: 0 auto;
-				padding: 0 var(--space-5);
+				padding-inline: var(--space-5);
 			}
 
 			.site-header {
-				position: fixed;
-				top: 0;
-				left: 0;
-				z-index: 10;
-				width: 100%;
 				padding-top: env(safe-area-inset-top, 0px);
-				background: var(--color-bg);
 				border-bottom: 1px solid var(--color-border);
 			}
 
@@ -131,9 +113,8 @@ import ibmPlexMonoRegularUrl from '@fontsource/ibm-plex-mono/files/ibm-plex-mono
 				display: flex;
 				align-items: center;
 				justify-content: space-between;
-				width: min(100%, var(--max-width-content));
-				margin: 0 auto;
-				padding: var(--space-4) var(--space-5);
+				gap: var(--space-5);
+				padding-block: var(--space-4);
 			}
 
 			.wordmark {
@@ -142,42 +123,26 @@ import ibmPlexMonoRegularUrl from '@fontsource/ibm-plex-mono/files/ibm-plex-mono
 				font-size: 18px;
 				color: var(--color-text-primary);
 				text-decoration: none;
-				transition: color var(--duration-fast) var(--ease-standard);
-			}
-
-			.wordmark:hover {
-				color: var(--color-accent-text);
 			}
 
 			.site-header nav {
 				display: flex;
-				gap: var(--space-6);
+				gap: var(--space-5);
 			}
 
 			.site-header nav a {
-				text-decoration: none;
 				font-size: var(--text-body-sm);
-				font-weight: 500;
 				color: var(--color-text-secondary);
-				transition: color var(--duration-fast) var(--ease-standard);
+				text-decoration: none;
 			}
 
+			.wordmark:hover,
 			.site-header nav a:hover {
-				color: var(--color-text-primary);
+				color: var(--color-accent-text);
 			}
 
 			#about {
-				padding: var(--space-9) 0 var(--space-8);
-				max-width: 620px;
-			}
-
-			.eyebrow {
-				font-family: var(--font-mono);
-				font-size: 13px;
-				color: var(--color-accent-text);
-				letter-spacing: var(--tracking-wide);
-				text-transform: uppercase;
-				margin: 0 0 var(--space-4);
+				padding-block: var(--space-8) var(--space-7);
 			}
 
 			#about h1 {
@@ -186,49 +151,66 @@ import ibmPlexMonoRegularUrl from '@fontsource/ibm-plex-mono/files/ibm-plex-mono
 				margin: 0;
 			}
 
-			.intro {
-				font-size: var(--text-body-lg);
+			.role {
+				font-family: var(--font-mono);
+				font-size: var(--text-body-sm);
+				color: var(--color-accent-text);
+				margin: var(--space-3) 0 var(--space-6);
+			}
+
+			.introduction {
+				max-width: 640px;
 				color: var(--color-text-secondary);
 				line-height: var(--leading-relaxed);
-				margin-top: var(--space-5);
 			}
 
-			#projects {
-				padding: var(--space-6) 0 var(--space-8);
+			.introduction p {
+				margin: 0 0 var(--space-5);
 			}
 
-			.section-heading {
-				display: flex;
-				justify-content: space-between;
-				align-items: baseline;
-				margin-bottom: var(--space-5);
+			.introduction p:last-child {
+				margin-bottom: 0;
 			}
 
-			.section-heading h2 {
-				font-size: var(--text-h2);
-				margin: 0;
+			.intro {
+				font-size: var(--text-body-lg);
+				color: var(--color-text-primary);
 			}
 
-			.section-note {
-				font-family: var(--font-mono);
-				font-size: 12px;
-				color: var(--color-text-secondary);
-			}
-
-			.project-list {
-				display: flex;
-				flex-direction: column;
-				gap: var(--space-4);
-			}
-
+			#experience,
 			#contact {
-				padding: var(--space-6) 0 var(--space-8);
+				padding-block: var(--space-6) var(--space-7);
 				border-top: 1px solid var(--color-border);
 			}
 
-			#contact h2 {
+			h2 {
 				font-size: var(--text-h2);
-				margin: var(--space-6) 0 var(--space-4);
+				line-height: var(--leading-tight);
+				margin: 0 0 var(--space-5);
+			}
+
+			.experience-list {
+				margin: 0;
+			}
+
+			.experience-item {
+				display: grid;
+				grid-template-columns: 1fr 1.5fr;
+				gap: var(--space-2) var(--space-5);
+				padding-block: var(--space-3);
+			}
+
+			.experience-item dt {
+				font-weight: 600;
+			}
+
+			.experience-item dd {
+				margin: 0;
+				color: var(--color-text-secondary);
+			}
+
+			#contact {
+				padding-bottom: calc(var(--space-8) + env(safe-area-inset-bottom, 0px));
 			}
 
 			.contact-list {
@@ -236,49 +218,33 @@ import ibmPlexMonoRegularUrl from '@fontsource/ibm-plex-mono/files/ibm-plex-mono
 				margin: 0;
 				padding: 0;
 				display: flex;
-				flex-direction: column;
-				gap: var(--space-3);
+				flex-wrap: wrap;
+				gap: var(--space-3) var(--space-5);
 			}
 
 			.contact-list a {
 				font-family: var(--font-mono);
 				font-size: var(--text-body-sm);
-				font-weight: 500;
-				color: var(--color-accent-text);
-				transition: color var(--duration-fast) var(--ease-standard);
+				text-underline-offset: 4px;
+				overflow-wrap: anywhere;
 			}
 
 			.contact-list a:hover {
 				color: var(--color-accent-hover);
 			}
 
-			.site-footer {
-				padding: var(--space-6) 0;
-				border-top: 1px solid var(--color-border);
-				font-family: var(--font-mono);
-				font-size: var(--text-caption);
-				color: var(--color-text-secondary);
-			}
-
 			@media (max-width: 480px) {
-				:global(body) {
-					--site-header-content-height: 95px;
-				}
-
-				.sample-banner {
-					margin-top: calc(env(safe-area-inset-top, 0px) + var(--site-header-content-height));
-				}
-
 				.site-header__inner {
-					flex-direction: column;
-					align-items: flex-start;
-					gap: var(--space-3);
+					flex-wrap: wrap;
+					gap: var(--space-3) var(--space-5);
 				}
 
-				.section-heading {
-					flex-direction: column;
-					align-items: flex-start;
-					gap: var(--space-1);
+				#about {
+					padding-top: var(--space-7);
+				}
+
+				.experience-item {
+					grid-template-columns: 1fr;
 				}
 			}
 		</style>
